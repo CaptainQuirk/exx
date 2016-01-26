@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# Usage: exx ls
+# Summary: List all installed Xcode subfolders
+
+CHECK="\033[32m✔\033[0m "
+LATEST_VERSION=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+INSTALLED=`ls /Applications/Xcode`
+VERSIONS=("$CHECK $LATEST_VERSION \n")
+
+for VERSION in $(ls -1r /Applications/Xcode); do
+    VERSIONS+="$VERSION\n"
+done
+
+echo $VERSIONS
