@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+# Usage: exx update
+# Summary: Backs up the current highest Xcode version and updates through
+# the softwareupdate utility
+
+LATEST=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+echo "Backing up current version of Xcode (\033[96m$LATEST\033[0m)"
+
+DIRPATH=/Applications/Xcode/$LATEST
+echo "  Creating directory \033[35m$DIRPATH\033[0m"
+mkdir -p $DIRPATH
+
+XCODE_APP=/Applications/Xcode.app
+echo "  Copying Xcode file \033[96m$XCODE_APP\033[0m to \033[35m$DIRPATH\033[0m"
+cp -R $XCODE_APP $DIRPATH/Xcode.app
+
+sudo softwareupdate --install Xcode
+
