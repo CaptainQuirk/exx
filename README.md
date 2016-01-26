@@ -3,6 +3,11 @@
 Sometimes you need to switch between the latest xcode version and an ancient
 ones.
 
+## Installation
+
+- Clone this repo ```git clone https://github.com/CaptainQuirk/exx <path>```
+- Add ```<path>/bin/exx to your $PATH```
+
 ## Commands
 
 - ```ls```: List all installed xcode versions
