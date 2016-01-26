@@ -3,12 +3,24 @@
 # Summary: List all installed Xcode subfolders
 
 CHECK="\033[32m✔\033[0m "
+BULLET="•"
 LATEST_VERSION=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+CURRENT=`xcode-select -p | cut -d\/ -f 4`
+if [ "$CURRENT" == "Contents" ]; then
+  VERSIONS=("$CHECK $LATEST_VERSION \n")
+  CURRENT=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+else
+  VERSIONS=("$BULLET $LATEST_VERSION \n")
+fi
+
 INSTALLED=`ls /Applications/Xcode`
-VERSIONS=("$CHECK $LATEST_VERSION \n")
 
 for VERSION in $(ls -1r /Applications/Xcode); do
-    VERSIONS+="$VERSION\n"
+    if [ "$VERSION" == "$CURRENT" ]; then
+        VERSIONS+="$CHECK $VERSION\n"
+    else
+        VERSIONS+="$BULLET $VERSION\n"
+    fi
 done
 
 echo $VERSIONS
