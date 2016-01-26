@@ -3,6 +3,10 @@
 # Summary: Returns the current xcode version
 
 CHECK="\033[32m✔\033[0m "
-LATEST_VERSION=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
 
-echo $CHECK $LATEST_VERSION
+CURRENT=`xcode-select -p | cut -d\/ -f 4`
+if [ "$CURRENT" == "Contents" ]; then
+  CURRENT=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+fi
+
+echo $CHECK $CURRENT
