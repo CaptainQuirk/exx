@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# Usage: exx reset
+# Summary: Resets Xcode version to latest one
+
+LATEST=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+echo "Resetting xcode to \033[96mlatest\033[0m version (\033[96m$LATEST\033[0m)"
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+
+if [ $? -ne 0 ]; then
+    CURRENT=`xcode-select -p | cut -d\/ -f 4`
+    echo "  ⛔  Resetting \033[31mfailed\033[0m"
+    echo "  Xcode version is \033[31m$CURRENT\033[0m"
+    exit 1
+fi
+
+echo "  \033[32m✔\033[0m Xcode version reset successfully to \033[96m$LATEST\033[0m"
