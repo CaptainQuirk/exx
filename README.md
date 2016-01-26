@@ -6,7 +6,7 @@ ones.
 ## Installation
 
 - Clone this repo ```git clone https://github.com/CaptainQuirk/exx <path>```
-- Add ```<path>/bin/exx to your $PATH```
+- Add ```<path>/bin/exx``` to your __$PATH__
 
 ## Commands
 
