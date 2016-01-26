@@ -10,6 +10,7 @@ ones.
 
 ## Commands
 
+- ```info```: Prints the current xcode version
 - ```ls```: List all installed xcode versions
 - ```switch <version>```: Switch to a specified version of Xcode
 - ```update```: Backs up the current Xcode.app and upgrade via __softwareupdate__
