@@ -6,7 +6,6 @@ ones.
 ## Installation
 
 - Clone this repo ```git clone https://github.com/CaptainQuirk/exx <path>```
-- Add ```<path>/bin/exx``` to your __$PATH__
 
 ## Commands
 
@@ -15,6 +14,7 @@ ones.
 - ```switch <version>```: Switch to a specified version of Xcode
 - ```update```: Backs up the current Xcode.app and upgrade via __softwareupdate__
 - ```reset```: Resets Xcode version to the latest
+- ```install```: Install `exx` globally
 
 ## Directory Structure
 

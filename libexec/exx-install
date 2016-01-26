@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+# Usage: exx install
+# Summary: Install `exx` globally
+
+PATH_INSTALL=$HOME/.sub
+
+installation(){
+  CURRENT_PATH=`pwd`
+  read -p "Do you wish install exx into $path ? (Y/n) : " yn
+
+  case $yn in
+    [Yy]*) cp -R $CURRENT_PATH $path; symlinks; break;;
+    [Nn]*) echo "non"; break;;
+    *) echo "Please select Y/n"
+  esac
+}
+
+symlinks(){
+  BINARY_PATH="/usr/local/bin/exx"
+
+  if [ ! -f $BINARY_PATH ]; then
+    echo "Create symlinks into $BINARY_PATH"
+    ln -s $path/exx/libexec/exx $BINARY_PATH
+    echo "Done !"
+    echo "Check vertification installation by running ``exx info`` for example"
+  fi
+}
+
+# test if installation path exists
+# if not, we create folder
+if [ ! -d $PATH_INSTALL ]; then
+  mkdir $PATH_INSTALL
+fi
+
+# we ask the user installation path
+read -p "Path to install (default: $PATH_INSTALL) : " path
+if [ -z "$path" ]; then
+  path=$PATH_INSTALL
+fi
+
+# we check if exx exists into path
+if [ ! -d "$path/exx" ]; then
+  installation
+else
+  echo "exx is already install into $path"
+  symlinks
+fi
+
+
