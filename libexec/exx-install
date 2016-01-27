@@ -48,6 +48,7 @@ if [ -z "$path" ]; then
   path=$INSTALL_PATH
 fi
 
+# if path is the current directory, don't copy
 if [ "$path" == "." ]; then
   path=`pwd`
   COPY_DIR=$false
