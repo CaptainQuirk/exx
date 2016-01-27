@@ -2,7 +2,7 @@
 # Usage: exx install
 # Summary: Install `exx` globally
 
-PATH_INSTALL=$HOME/.sub
+INSTALL_PATH=$HOME/.sub
 
 installation(){
   CURRENT_PATH=`pwd`
@@ -28,14 +28,14 @@ symlinks(){
 
 # test if installation path exists
 # if not, we create folder
-if [ ! -d $PATH_INSTALL ]; then
-  mkdir $PATH_INSTALL
+if [ ! -d $INSTALL_PATH ]; then
+  mkdir $INSTALL_PATH
 fi
 
 # we ask the user installation path
-read -p "Path to install (default: $PATH_INSTALL) : " path
+read -p "Path to install (default: $INSTALL_PATH) : " path
 if [ -z "$path" ]; then
-  path=$PATH_INSTALL
+  path=$INSTALL_PATH
 fi
 
 # we check if exx exists into path
