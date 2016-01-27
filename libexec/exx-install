@@ -1,0 +1,70 @@
+#!/usr/bin/env sh
+# Usage: exx install
+# Summary: Install `exx` globally
+
+INSTALL_PATH=$HOME/.sub
+COPY_DIR=$true
+
+copy(){
+  CURRENT_PATH=`pwd`
+  read -p "Do you wish install exx into $path ? (Y/n) : " yn
+
+  case $yn in
+    [Yy]*)
+      cp -R $CURRENT_PATH $path;
+      symlink;
+      break;;
+    [Nn]*) echo "non"; break;;
+    *) echo "Please select Y/n"
+  esac
+}
+
+symlink(){
+  BINARY_PATH="/usr/local/bin/exx"
+  SOURCE_PATH=$path
+
+  if [[ "$SOURCE_PATH" == */exx ]]; then
+    SOURCE_PATH=$(dirname $path)
+  fi
+
+  if [ ! \( -e "${BINARY_PATH}" \) ]; then
+    echo "Create symlinks into $BINARY_PATH"
+    ln -s $SOURCE_PATH/exx/libexec/exx $BINARY_PATH
+    echo "Done !"
+    echo "Check installation by running ``exx info`` for example"
+  fi
+}
+
+# test if installation path exists
+# if not, we create folder
+if [ ! -d $INSTALL_PATH ]; then
+  mkdir $INSTALL_PATH
+fi
+
+# we ask the user installation path
+read -p "Path to install (default: $INSTALL_PATH) : " path
+
+if [ -z "$path" ]; then
+  path=$INSTALL_PATH
+fi
+
+# if path is the current directory, don't copy
+if [ "$path" == "." ]; then
+  path=`pwd`
+  COPY_DIR=$false
+fi
+
+if [ "$path" == `pwd` ] && [ !$COPY_DIR ]; then
+  symlink
+  exit
+fi
+
+# we check if exx exists into path
+if [ ! -d "$path/exx" ]; then
+  copy
+else
+  echo "exx is already install into $path"
+  symlink
+fi
+
+
