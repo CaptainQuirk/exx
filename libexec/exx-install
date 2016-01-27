@@ -9,13 +9,13 @@ installation(){
   read -p "Do you wish install exx into $path ? (Y/n) : " yn
 
   case $yn in
-    [Yy]*) cp -R $CURRENT_PATH $path; symlinks; break;;
+    [Yy]*) cp -R $CURRENT_PATH $path; symlink; break;;
     [Nn]*) echo "non"; break;;
     *) echo "Please select Y/n"
   esac
 }
 
-symlinks(){
+symlink(){
   BINARY_PATH="/usr/local/bin/exx"
 
   if [ ! -f $BINARY_PATH ]; then
@@ -43,7 +43,7 @@ if [ ! -d "$path/exx" ]; then
   installation
 else
   echo "exx is already install into $path"
-  symlinks
+  symlink
 fi
 
 
