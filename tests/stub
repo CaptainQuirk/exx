@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DIRNAME=$(dirname $BATS_TEST_DIRNAME)
+STUBS_PATH="$DIRNAME/stubs"
+export PATH="$STUBS_PATH:$PATH"
+
+add_stub() {
+    if [ ! -d $STUBS_PATH ]; then
+      mkdir $STUBS_PATH
+    fi
+    echo $2 > $STUBS_PATH/$1
+    chmod +x $STUBS_PATH/$1
+}
+remove_stubs() {
+    rm -rf $STUBS_PATH/*
+}
