@@ -1,0 +1,11 @@
+#!/bin/bash
+
+load "$(dirname $BATS_TEST_DIRNAME)/stub"
+
+teardown() {
+    remove_stubs
+}
+
+stub() {
+    add_stub "$@"
+}
