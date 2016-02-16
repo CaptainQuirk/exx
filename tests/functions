@@ -2,7 +2,7 @@
 
 load "$(dirname $BATS_TEST_DIRNAME)/stub"
 
-teardown() {
+clear_stubs() {
     remove_stubs
 }
 
