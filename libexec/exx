@@ -19,6 +19,12 @@ abs_dirname() {
   cd "$cwd"
 }
 
+source "$(abs_dirname)/functions.sh"
+if ! is_installed "xcode-select" ; then
+  echo "exx: xcode-select command is not installed"
+  exit 1
+fi
+
 libexec_path="$(abs_dirname "$0")"
 export _EXX_ROOT="$(abs_dirname "$libexec_path")"
 export PATH="${libexec_path}:$PATH"
