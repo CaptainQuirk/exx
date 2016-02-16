@@ -25,6 +25,11 @@ if ! is_installed "xcode-select" ; then
   exit 1
 fi
 
+if ! is_installed "PlistBuddy" ; then
+  echo "exx: PlistBuddy command is not available. Is /usr/bin/libexec in you PATH ?"
+  exit 1
+fi
+
 libexec_path="$(abs_dirname "$0")"
 export _EXX_ROOT="$(abs_dirname "$libexec_path")"
 export PATH="${libexec_path}:$PATH"

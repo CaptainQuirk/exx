@@ -17,6 +17,16 @@ setup() {
     fi
 }
 
+@test "exx fails if PlistBuddy is missing" {
+    stub xcode-select ""
+    if ! is_installed "PlistBuddy" ; then
+        run exx
+        echo $output
+        [ "$status" -eq 1 ]
+        [ "$output" = "exx: PlistBuddy command is not available. Is /usr/bin/libexec in you PATH ?" ]
+    fi
+}
+
 teardown() {
     clear_stubs
 }
