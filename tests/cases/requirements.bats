@@ -16,3 +16,7 @@ setup() {
         [ "$output" = "exx: xcode-select command is not installed" ]
     fi
 }
+
+teardown() {
+    clear_stubs
+}
