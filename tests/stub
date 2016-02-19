@@ -8,7 +8,7 @@ add_stub() {
     if [ ! -d $STUBS_PATH ]; then
       mkdir $STUBS_PATH
     fi
-    echo $2 > $STUBS_PATH/$1
+    echo "$2" > $STUBS_PATH/$1
     chmod +x $STUBS_PATH/$1
 }
 remove_stubs() {
