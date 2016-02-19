@@ -1,4 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+log() {
+  local str="$1"
+  echo "$1" >> ./tmp
+}
 
 # checks if commands and utilities are installed on computer
 # ${1}  command

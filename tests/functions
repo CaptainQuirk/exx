@@ -2,6 +2,11 @@
 
 load "$(dirname $BATS_TEST_DIRNAME)/stub"
 
+log() {
+  local str="$1"
+  echo "$1" >> ./tmp
+}
+
 clear_stubs() {
     remove_stubs
 }
