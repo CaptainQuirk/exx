@@ -20,13 +20,14 @@ setup() {
 }
 
 @test "exx fails if PlistBuddy is missing" {
-    stub xcode-select ""
-    if ! is_installed "PlistBuddy" ; then
-        run exx
-        echo $output
-        [ "$status" -eq 1 ]
-        [ "$output" = "exx: PlistBuddy command is not available. Is /usr/bin/libexec in you PATH ?" ]
-    fi
+    # Stub bash "type" built-in with a condition to return
+    # false only if argument is PlistBuddy
+    return_false="$(return_false_if 'PlistBuddy')"
+    stub type "$return_false"
+
+    run exx
+    [ "$status" -eq 1 ]
+    [ "$output" = "exx: PlistBuddy command is not available. Is /usr/bin/libexec in you PATH ?" ]
 }
 
 teardown() {
