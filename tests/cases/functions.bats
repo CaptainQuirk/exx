@@ -5,6 +5,10 @@
 load "$(dirname $BATS_TEST_DIRNAME)/functions"
 load "$PWD/functions.sh"
 
+setup() {
+    export PATH="$PWD/bin:$PATH"
+    export PATH="$PWD/tests/mocks:$PATH"
+}
 
 @test "is_installed function returns 1 if program is not installed" {
     # Stub bash "type" built-in
