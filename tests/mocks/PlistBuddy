@@ -1,0 +1,4 @@
+#/usr/bin/env bash
+
+echo "7.2"
+#exit 0
