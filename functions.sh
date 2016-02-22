@@ -15,6 +15,12 @@ is_installed() {
   return $rtn
 }
 
+get_latest_version_path() {
+    echo "/Applications/Xcode.app/Contents/version.plist"
+
+    return 0
+}
+
 # get latest installed version number through PlistBuddy
 # Outputs Version number on stdout
 get_latest_version() {

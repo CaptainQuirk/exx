@@ -27,6 +27,13 @@ setup() {
     is_installed "xcode-select"
 }
 
+@test "get_latest_version_path returns a valid path" {
+    path=$(get_latest_version_path)
+
+    [ "$path" == "/Applications/Xcode.app/Contents/version.plist" ]
+    [ "$?" == 0 ]
+}
+
 @test "get_latest_version function prints the output of PlistBuddy" {
     # Load PlistBuddy mock
     load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
