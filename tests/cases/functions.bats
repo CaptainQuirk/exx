@@ -26,3 +26,13 @@ setup() {
 
     is_installed "xcode-select"
 }
+
+@test "get_latest_version function prints the output of PlistBuddy" {
+    # Load PlistBuddy mock
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+    version=$(get_latest_version)
+
+    # Check that number is 7.2 and that the function returned 0
+    [ "$version" == "7.2" ]
+    [ "$?" == 0 ]
+}
