@@ -28,6 +28,7 @@ setup() {
 }
 
 @test "get_latest_version_path returns a valid path" {
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
     path=$(get_latest_version_path)
 
     [ "$path" == "/Applications/Xcode.app/Contents/version.plist" ]
