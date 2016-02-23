@@ -21,6 +21,16 @@ get_latest_version_path() {
     return 0
 }
 
+build_latest_version_args() {
+    latest_version_path=$(get_latest_version_path)
+    t="$latest_version_path -c \"Print CFBundleShortVersionString\""
+    log "command content : $t"
+
+    echo "$t"
+
+    return 0
+}
+
 # get latest installed version number through PlistBuddy
 # Outputs Version number on stdout
 get_latest_version() {
