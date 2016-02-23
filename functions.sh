@@ -34,7 +34,8 @@ build_latest_version_args() {
 # get latest installed version number through PlistBuddy
 # Outputs Version number on stdout
 get_latest_version() {
-    local version=$(PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString")
+    local args=$(build_latest_version_args)
+    local version=$(PlistBuddy $args)
     echo $version
 
     return 0
