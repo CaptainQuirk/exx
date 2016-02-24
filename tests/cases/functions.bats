@@ -27,25 +27,80 @@ setup() {
     is_installed "xcode-select"
 }
 
+# get_latest_version_path
+# -----------------------
+
 @test "get_latest_version_path returns a valid path" {
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
     path=$(get_latest_version_path)
 
     [ "$path" == "/Applications/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
 
-@test "build_latest_version_args is correct" {
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-    command=$(build_latest_version_args)
 
-    [ "$command" == "/Applications/Xcode.app/Contents/version.plist -c \"Print CFBundleShortVersionString\"" ]
+# get_plist_path
+# --------------
+
+@test "get_plist_path returns the valid path to a plist file" {
+    xcode_select_path="/Applications/Xcode.app/Contents/Developer"
+    plist_path=$(get_plist_path $xcode_select_path)
+
+    [ "$plist_path" == "/Applications/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
 
+
+# current_version_path
+# --------------------
+
+@test "current_version_path finds the correct path if the current version is the latest" {
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
+
+    current_path=$(get_current_version_path)
+    log $current_path
+    [ "$current_path" == "/Applications/Xcode.app/Contents/version.plist" ]
+    [ "$?" == 0 ]
+}
+
+@test "current_version_path finds the correct path if the current version a former one" {
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/Developer"
+
+    current_path=$(get_current_version_path)
+    log $current_path
+    [ "$current_path" == "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist" ]
+    [ "$?" == 0 ]
+}
+
+
+# get_version_options
+# -------------------
+
+@test "get_version_options returns a list of valid options" {
+    options=$(get_version_options)
+
+    [ "$options" == "-c \"Print CFBundleShortVersionString\"" ]
+    [ "$?" == 0 ]
+}
+
+
+# get_version
+# -----------
+
+@test "get_version returns the correct version from plist file" {
+
+}
+
+
+# get_latest_version
+# ------------------
+
 @test "get_latest_version function prints the output of PlistBuddy" {
     # Load PlistBuddy mock
+    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
     load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+
     version=$(get_latest_version)
 
     # Check that number is 7.2 and that the function returned 0
