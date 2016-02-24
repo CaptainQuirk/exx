@@ -38,9 +38,6 @@ setup() {
 @test "build_latest_version_args is correct" {
     load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
     command=$(build_latest_version_args)
-    #log "$?"
-
-    #log "command from test : $command"
 
     [ "$command" == "/Applications/Xcode.app/Contents/version.plist -c \"Print CFBundleShortVersionString\"" ]
     [ "$?" == 0 ]
