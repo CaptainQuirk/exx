@@ -119,3 +119,35 @@ setup() {
     [ "$version" == "7.2" ]
     [ "$?" == 0 ]
 }
+
+
+# get_current_version
+# -------------------
+
+@test "get_current_version function prints the version number of current version if latest" {
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
+
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
+
+    current_version=$(get_current_version)
+
+    # Check that number is 7.2 and that the function returned 0
+    [ "$current_version" == "7.2" ]
+    [ "$?" == 0 ]
+}
+
+@test "get_current_version function prints the version number of current version if any" {
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+    export TMP_BATS_PLIST_BUDDY_VERSION="6.4"
+
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/version.plist"
+
+    current_version=$(get_current_version)
+
+    # Check that number is 6.4 and that the function returned 0
+    [ "$current_version" == "6.4" ]
+    [ "$?" == 0 ]
+}

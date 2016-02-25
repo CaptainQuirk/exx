@@ -68,13 +68,16 @@ get_latest_version() {
 
 get_current_version() {
     local field=4
-    local command="xcode-select -p | cut -d\/ -f $field"
-
-    local current_dir_name=$(command)
+    local path=$(get_current_version_path)
+    local current_dir_name=$(echo $path | cut -d\/ -f $field)
 
     if [ "$current_dir_name" == "Contents" ]; then
         echo "$(get_latest_version)"
+
         return 0
     fi
 
+    echo $(get_version $path)
+
+    return 0
 }
