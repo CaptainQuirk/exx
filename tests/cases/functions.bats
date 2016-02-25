@@ -86,8 +86,22 @@ setup() {
 # get_version
 # -----------
 
-@test "get_version returns the correct version from plist file" {
+@test "get_version returns the correct version from latest xcode plist file" {
+    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
 
+    version=$(get_version "/Applications/Xcode.app/Contents/version.plist")
+    [ "$version" == "7.2" ]
+    [ "$?" == 0 ]
+}
+
+@test "get_version returns the correct version from current xcode plist file" {
+    export TMP_BATS_PLIST_BUDDY_VERSION="6.4"
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+
+    version=$(get_version "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist")
+    [ "$version" == "6.4" ]
+    [ "$?" == 0 ]
 }
 
 
