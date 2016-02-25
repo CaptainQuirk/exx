@@ -58,7 +58,6 @@ setup() {
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
 
     current_path=$(get_current_version_path)
-    log $current_path
     [ "$current_path" == "/Applications/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
@@ -68,7 +67,6 @@ setup() {
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/Developer"
 
     current_path=$(get_current_version_path)
-    log $current_path
     [ "$current_path" == "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
