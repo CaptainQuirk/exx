@@ -1,21 +1,14 @@
 #!/usr/bin/env bats
 
+# Loading test helper functions and main utilities
+# functions
 load "$(dirname $BATS_TEST_DIRNAME)/functions"
 load "$PWD/functions.sh"
 
-
-PLIST_BUDDY_PATH="/usr/libexec/"
-
-function setup() {
-    if [ ! -x "$PLIST_BUDDY_PATH/PlistBuddy" ]; then
-        #stub PlistBuddy "echo 7.2"
-    fi
+setup() {
+    export PATH="$PWD/bin:$PATH"
+    export PATH="$PWD/tests/mocks:$PATH"
 }
 
-@test "Read latest version " {
-    [ `latest_version` == "7.2" ]
-}
 
-#teardown() {
-    #remove_stubs
-#}
+

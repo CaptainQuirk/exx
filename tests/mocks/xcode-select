@@ -1,0 +1,3 @@
+#/usr/bin/env bash
+
+echo $TMP_BATS_XCODE_SELECT_PATH

@@ -1,0 +1,3 @@
+#/usr/bin/env bash
+
+echo $TMP_BATS_PLIST_BUDDY_VERSION
