@@ -48,3 +48,22 @@ EOF
 
   echo "${STRING}"
 }
+
+fixture_installed_versions() {
+
+  read -d '' STRING <<EOF
+#!/bin/bash
+
+log() {
+  local str=\$1
+  echo "\$str" >> ./tmp
+}
+
+echo "/Applications/Xcode/5.1/Xcode.app/Contents\n
+/Applications/Xcode/6.1/Xcode.app/Contents\n
+/Applications/Xcode/6.4/Xcode.app/Contents\n
+/Applications/Xcode/7.1/Xcode.app/Contents"
+EOF
+
+  echo "${STRING}"
+}
