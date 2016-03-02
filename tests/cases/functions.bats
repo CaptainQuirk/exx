@@ -151,3 +151,22 @@ setup() {
     [ "$current_version" == "6.4" ]
     [ "$?" == 0 ]
 }
+
+
+# get_installed_version
+# ---------------------
+
+@test "get_installed_version function lists every version" {
+
+    get_fixture_paths=$(fixture_installed_versions)
+    stub find "$get_fixture_paths"
+
+    installed_versions=$(get_installed_versions)
+    expected="7.1
+6.4
+6.1
+5.1"
+
+    [ "$installed_versions" == "$expected" ]
+    [ "$?" == 0 ]
+}
