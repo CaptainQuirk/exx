@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+# Usage: exx ls
+# Summary: List all installed Xcode subfolders
+
+#LATEST=$(get_latest_version)
+#CURRENT=$(get_current_version)
+
+#VERSIONS=("$LATEST_VERSION \n")
+#INSTALLED=$(get_installed_versions)
+
+#for VERSION in INSTALLED; do
+  #VERSIONS+="$VERSION\n"
+#done
+
+#echo $VERSIONS
