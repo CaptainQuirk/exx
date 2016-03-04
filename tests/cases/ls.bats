@@ -10,4 +10,19 @@ setup() {
     export PATH="$PWD/tests/mocks:$PATH"
 }
 
+@test "ls subcommand returns the latest version and the others installed" {
+    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
+    expected="7.2
+7.1
+6.4
+6.1
+5.1"
+
+    run exx ls
+
+    log "$output"
+
+    [ "$status" -eq 1 ]
+    [ "$output" == "$expected" ]
+}
 
