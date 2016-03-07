@@ -10,6 +10,10 @@ setup() {
     export PATH="$PWD/tests/mocks:$PATH"
 }
 
+teardown() {
+    clear_stubs
+}
+
 @test "ls subcommand returns the latest version and the others installed" {
     export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
     expected="7.2
