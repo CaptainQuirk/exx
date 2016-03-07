@@ -10,6 +10,10 @@ setup() {
     export PATH="$PWD/tests/mocks:$PATH"
 }
 
+teardown() {
+    clear_stubs
+}
+
 @test "is_installed function returns 1 if program is not installed" {
     # Stub bash "type" built-in
     return_false="$(return_false)"
