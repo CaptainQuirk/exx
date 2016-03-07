@@ -12,8 +12,6 @@ is_installed() {
   env type "${1}"
   rtn=$?
 
-  log "rtn for $1: $rtn"
-
   return $rtn
 }
 
