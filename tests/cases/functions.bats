@@ -91,8 +91,8 @@ teardown() {
 # -----------
 
 @test "get_version returns the correct version from latest xcode plist file" {
-    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
 
     version=$(get_version "/Applications/Xcode.app/Contents/version.plist")
     [ "$version" == "7.2" ]
@@ -100,9 +100,8 @@ teardown() {
 }
 
 @test "get_version returns the correct version from current xcode plist file" {
-    export TMP_BATS_PLIST_BUDDY_VERSION="6.4"
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-
+    value_stub=$(echo_value "6.4")
+    stub PlistBuddy "$value_stub"
     version=$(get_version "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist")
     [ "$version" == "6.4" ]
     [ "$?" == 0 ]
@@ -113,10 +112,8 @@ teardown() {
 # ------------------
 
 @test "get_latest_version function prints the output of PlistBuddy" {
-    # Load PlistBuddy mock
-    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
     version=$(get_latest_version)
 
     # Check that number is 7.2 and that the function returned 0
@@ -129,8 +126,8 @@ teardown() {
 # -------------------
 
 @test "get_current_version function prints the version number of current version if latest" {
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
 
     load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
@@ -143,8 +140,8 @@ teardown() {
 }
 
 @test "get_current_version function prints the version number of current version if any" {
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-    export TMP_BATS_PLIST_BUDDY_VERSION="6.4"
+    value_stub=$(echo_value "6.4")
+    stub PlistBuddy "$value_stub"
 
     load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/version.plist"

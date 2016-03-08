@@ -30,6 +30,16 @@ EOF
     echo "${String}"
 }
 
+echo_value() {
+  read -d '' STRING <<EOF
+#!/bin/bash
+
+echo "$1"
+EOF
+
+  echo "${STRING}"
+}
+
 return_false_if() {
   read -d '' STRING <<EOF
 #!/bin/bash
