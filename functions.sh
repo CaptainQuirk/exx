@@ -2,7 +2,7 @@
 
 log() {
   local str="$1"
-  echo "$1" >> ./tmp
+  echo "$1" >> ./tmp/debug.log
 }
 
 # checks if commands and utilities are installed on computer
