@@ -2,13 +2,17 @@
 # Usage: exx ls
 # Summary: List all installed Xcode subfolders
 
-LATEST=$(get_latest_version)
-CURRENT=$(get_current_version)
+source "$_EXX_ROOT/functions.sh"
 
-VERSIONS=("$LATEST_VERSION \n")
+LATEST=$(get_latest_version)
+#log "latest : $latest"
+#CURRENT=$(get_current_version)
+
+VERSIONS=("$LATEST \n")
 INSTALLED=$(get_installed_versions)
 
-for VERSION in INSTALLED; do
+
+for VERSION in $INSTALLED; do
   VERSIONS+="$VERSION\n"
 done
 

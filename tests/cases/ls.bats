@@ -15,7 +15,9 @@ teardown() {
 }
 
 @test "ls subcommand returns the latest version and the others installed" {
-    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
+
     expected="7.2
 7.1
 6.4
@@ -24,9 +26,7 @@ teardown() {
 
     run exx ls
 
-    log "$output"
-
-    [ "$status" -eq 1 ]
+    [ "$status" -eq 0 ]
     [ "$output" == "$expected" ]
 }
 
