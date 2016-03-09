@@ -6,7 +6,7 @@ source "$_EXX_ROOT/functions.sh"
 
 LATEST=$(get_latest_version)
 
-VERSIONS=("$LATEST \n")
+VERSIONS=("$LATEST\n")
 INSTALLED=$(get_installed_versions)
 
 
