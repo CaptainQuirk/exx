@@ -50,8 +50,8 @@ get_version_options() {
 get_version() {
     local path=$1
     local options=$(get_version_options)
-    local command="PlistBuddy $path $options"
-    local result=$($command)
+    local cmd="PlistBuddy $path $options"
+    local result=$(eval $cmd)
 
     echo "$result"
     return 0
