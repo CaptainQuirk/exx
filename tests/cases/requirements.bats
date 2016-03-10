@@ -30,6 +30,17 @@ setup() {
     [ "$output" = "exx: PlistBuddy command is not available. Is /usr/bin/libexec in you PATH ?" ]
 }
 
+@test "exx fails if shml is missing" {
+    # Stub bash "type" built-in with a condition to return
+    # false only if argument is PlistBuddy
+    return_false="$(return_false_if 'shml')"
+    stub type "$return_false"
+
+    run exx
+    [ "$status" -eq 1 ]
+    [ "$output" = "exx: shml command is not available. see https://maxcdn.github.io/shml/getting-started/#Install" ]
+}
+
 teardown() {
     clear_stubs
 }

@@ -30,6 +30,11 @@ if ! is_installed "PlistBuddy" ; then
   exit 1
 fi
 
+if ! is_installed "shml" ; then
+  echo "exx: shml command is not available. see https://maxcdn.github.io/shml/getting-started/#Install"
+  exit 1
+fi
+
 libexec_path="$(abs_dirname "$0")"
 export _EXX_ROOT="$(abs_dirname "$libexec_path")"
 export PATH="${libexec_path}:$PATH"
