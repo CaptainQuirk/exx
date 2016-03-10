@@ -18,11 +18,11 @@ teardown() {
     value_stub=$(echo_value "7.2")
     stub PlistBuddy "$value_stub"
 
-    expected="7.2
-7.1
-6.4
-6.1
-5.1"
+    expected="  7.2
+  7.1
+  6.4
+  6.1
+  5.1"
 
     run exx ls
 
