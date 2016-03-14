@@ -6,11 +6,11 @@ source "$_EXX_ROOT/functions.sh"
 
 LATEST=$(get_latest_version)
 
-VERSIONS=("  $LATEST\n")
+VERSIONS=$LATEST
 INSTALLED=$(get_installed_versions)
 
 for VERSION in $INSTALLED; do
-  VERSIONS+="  $VERSION\n"
+  VERSIONS="$VERSIONS $VERSION"
 done
 
 echo "$VERSIONS"
