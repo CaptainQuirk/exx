@@ -5,8 +5,14 @@
 source "$_EXX_ROOT/functions.sh"
 
 LATEST=$(get_latest_version)
+CURRENT=$(get_current_version)
 
-VERSIONS=$LATEST
+if [ "$LATEST" == "$CURRENT" ]; then
+  VERSIONS=$(echo $(fgc green "$LATEST")$(fgc end))
+else
+  VERSIONS=$LATEST
+fi
+
 INSTALLED=$(get_installed_versions)
 
 for VERSION in $INSTALLED; do

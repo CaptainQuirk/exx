@@ -94,3 +94,5 @@ get_installed_versions() {
 
   return 0
 }
+
+require "shml"
