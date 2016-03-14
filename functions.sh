@@ -5,6 +5,10 @@ log() {
   echo "$1" >> ./tmp/debug.log
 }
 
+require() {
+  source $(which "$1")
+}
+
 # checks if commands and utilities are installed on computer
 # ${1}  command
 # returns 0 for success. Otherwise, failure

@@ -6,6 +6,7 @@ load "$(dirname $BATS_TEST_DIRNAME)/functions"
 load "$PWD/functions.sh"
 
 setup() {
+    require "shml"
     export PATH="$PWD/bin:$PATH"
     export PATH="$PWD/tests/mocks:$PATH"
 }
