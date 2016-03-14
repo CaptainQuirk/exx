@@ -13,4 +13,4 @@ for VERSION in $INSTALLED; do
   VERSIONS="$VERSIONS $VERSION"
 done
 
-echo "$VERSIONS"
+echo $VERSIONS | tr " " "\n"
