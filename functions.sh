@@ -97,7 +97,6 @@ get_installed_versions() {
 
 load_config() {
   if [ -f "$HOME/.exxrc" ]; then
-    log "config file found"
     source "$HOME/.exxrc"
   fi
   export XCODE_VERSIONS_DIRNAME=${XCODE_VERSIONS_DIRNAME:-/Applications/Xcode}
