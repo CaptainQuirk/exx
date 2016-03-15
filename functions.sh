@@ -88,7 +88,7 @@ get_current_version() {
 }
 
 get_installed_versions() {
-  local versions=$(find /Applications/Xcode -maxdepth 4 -name 'version.plist' -print0 | xargs -0 -n1 dirname | sort --unique --reverse | cut -d"/" -f 4)
+  local versions=$(find $XCODE_VERSIONS_DIRNAME -maxdepth 4 -name 'version.plist' -print0 | xargs -0 -n1 dirname | sort --unique --reverse | sed "s#$XCODE_VERSIONS_DIRNAME/##g" | cut -d"/" -f 1)
 
   echo "$versions"
 

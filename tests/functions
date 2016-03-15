@@ -84,10 +84,10 @@ log() {
   echo "\$str" >> ./tmp/debug.log
 }
 
-echo "/Applications/Xcode/5.1/Xcode.app/Contents\n
-/Applications/Xcode/6.1/Xcode.app/Contents\n
-/Applications/Xcode/6.4/Xcode.app/Contents\n
-/Applications/Xcode/7.1/Xcode.app/Contents"
+echo "$XCODE_VERSIONS_DIRNAME/5.1/Xcode.app/Contents\n
+$XCODE_VERSIONS_DIRNAME/6.1/Xcode.app/Contents\n
+$XCODE_VERSIONS_DIRNAME/6.4/Xcode.app/Contents\n
+$XCODE_VERSIONS_DIRNAME/7.1/Xcode.app/Contents"
 EOF
 
   echo "${STRING}"
