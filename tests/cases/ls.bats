@@ -18,20 +18,16 @@ teardown() {
     value_stub=$(echo_value "7.2")
     stub PlistBuddy "$value_stub"
 
-    log "test : $(echo $(fgc green "7.2")$(fgc end))"
-
-    expected="  $(echo $(fgc green "7.2")$(fgc end))
+    expected="$(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "7.2")$(attribute end)
   7.1
   6.4
   6.1
   5.1"
-    log "expected : $expected"
-    #log "last return : $?"
 
     run exx ls
 
+    log "diff : $(diff -ai <(echo "$expected") <(echo "$output"))"
     log "status : $status"
-    log "output : $output"
     [ "$status" -eq 0 ]
     [ "$output" == "$expected" ]
 }
