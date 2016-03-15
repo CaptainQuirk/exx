@@ -8,15 +8,16 @@ LATEST=$(get_latest_version)
 CURRENT=$(get_current_version)
 
 if [ "$LATEST" == "$CURRENT" ]; then
-  VERSIONS=$(echo $(fgc green "$LATEST")$(fgc end))
+  VERSIONS="  $LATEST"
 else
-  VERSIONS=$LATEST
+  VERSIONS="  $LATEST"
 fi
 
 INSTALLED=$(get_installed_versions)
 
 for VERSION in $INSTALLED; do
-  VERSIONS="$VERSIONS $VERSION"
+  V=$(printf "$VERSION")
+  VERSIONS="${VERSIONS}\n  ${V}"
 done
 
-echo $VERSIONS | tr " " "\n"
+printf "$VERSIONS"
