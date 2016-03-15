@@ -19,6 +19,9 @@ teardown() {
     value_stub=$(echo_value "7.2")
     stub PlistBuddy "$value_stub"
 
+    get_fixture_paths=$(fixture_installed_versions)
+    stub find "$get_fixture_paths"
+
     expected="$(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "7.2")$(attribute end)
   7.1
   6.4
