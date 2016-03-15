@@ -4,7 +4,7 @@ load "$(dirname $BATS_TEST_DIRNAME)/stub"
 
 log() {
   local str="$1"
-  echo "$1" >> ./tmp
+  echo "$1" >> ./tmp/debug.log
 }
 
 clear_stubs() {
@@ -21,7 +21,7 @@ return_false() {
 
 log() {
   local str=$1
-  echo "$str" >> ./tmp
+  echo "$str" >> ./tmp/debug.log
 }
 
 exit 1
@@ -30,13 +30,23 @@ EOF
     echo "${String}"
 }
 
+echo_value() {
+  read -d '' STRING <<EOF
+#!/bin/bash
+
+echo "$1"
+EOF
+
+  echo "${STRING}"
+}
+
 return_false_if() {
   read -d '' STRING <<EOF
 #!/bin/bash
 
 log() {
   local str=\$1
-  echo "\$str" >> ./tmp
+  echo "\$str" >> ./tmp/debug.log
 }
 
 if [ "\$1" == "$1" ]; then
@@ -44,6 +54,25 @@ if [ "\$1" == "$1" ]; then
 else
   exit 0
 fi
+EOF
+
+  echo "${STRING}"
+}
+
+fixture_installed_versions() {
+
+  read -d '' STRING <<EOF
+#!/bin/bash
+
+log() {
+  local str=\$1
+  echo "\$str" >> ./tmp/debug.log
+}
+
+echo "/Applications/Xcode/5.1/Xcode.app/Contents\n
+/Applications/Xcode/6.1/Xcode.app/Contents\n
+/Applications/Xcode/6.4/Xcode.app/Contents\n
+/Applications/Xcode/7.1/Xcode.app/Contents"
 EOF
 
   echo "${STRING}"

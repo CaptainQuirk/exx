@@ -10,6 +10,10 @@ setup() {
     export PATH="$PWD/tests/mocks:$PATH"
 }
 
+teardown() {
+    clear_stubs
+}
+
 @test "is_installed function returns 1 if program is not installed" {
     # Stub bash "type" built-in
     return_false="$(return_false)"
@@ -58,7 +62,6 @@ setup() {
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
 
     current_path=$(get_current_version_path)
-    log $current_path
     [ "$current_path" == "/Applications/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
@@ -68,7 +71,6 @@ setup() {
     export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/Developer"
 
     current_path=$(get_current_version_path)
-    log $current_path
     [ "$current_path" == "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist" ]
     [ "$?" == 0 ]
 }
@@ -88,8 +90,21 @@ setup() {
 # get_version
 # -----------
 
-@test "get_version returns the correct version from plist file" {
+@test "get_version returns the correct version from latest xcode plist file" {
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
 
+    version=$(get_version "/Applications/Xcode.app/Contents/version.plist")
+    [ "$version" == "7.2" ]
+    [ "$?" == 0 ]
+}
+
+@test "get_version returns the correct version from current xcode plist file" {
+    value_stub=$(echo_value "6.4")
+    stub PlistBuddy "$value_stub"
+    version=$(get_version "/Applications/Xcode/6.4/Xcode.app/Contents/version.plist")
+    [ "$version" == "6.4" ]
+    [ "$?" == 0 ]
 }
 
 
@@ -97,13 +112,62 @@ setup() {
 # ------------------
 
 @test "get_latest_version function prints the output of PlistBuddy" {
-    # Load PlistBuddy mock
-    export TMP_BATS_PLIST_BUDDY_VERSION="7.2"
-    load "$(dirname $BATS_TEST_DIRNAME)/mocks/PlistBuddy"
-
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
     version=$(get_latest_version)
 
     # Check that number is 7.2 and that the function returned 0
     [ "$version" == "7.2" ]
+    [ "$?" == 0 ]
+}
+
+
+# get_current_version
+# -------------------
+
+@test "get_current_version function prints the version number of current version if latest" {
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
+
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode.app/Contents/Developer"
+
+    current_version=$(get_current_version)
+
+    # Check that number is 7.2 and that the function returned 0
+    [ "$current_version" == "7.2" ]
+    [ "$?" == 0 ]
+}
+
+@test "get_current_version function prints the version number of current version if any" {
+    value_stub=$(echo_value "6.4")
+    stub PlistBuddy "$value_stub"
+
+    load "$(dirname $BATS_TEST_DIRNAME)/mocks/xcode-select"
+    export TMP_BATS_XCODE_SELECT_PATH="/Applications/Xcode/6.4/Xcode.app/Contents/version.plist"
+
+    current_version=$(get_current_version)
+
+    # Check that number is 6.4 and that the function returned 0
+    [ "$current_version" == "6.4" ]
+    [ "$?" == 0 ]
+}
+
+
+# get_installed_version
+# ---------------------
+
+@test "get_installed_version function lists every version" {
+
+    get_fixture_paths=$(fixture_installed_versions)
+    stub find "$get_fixture_paths"
+
+    installed_versions=$(get_installed_versions)
+    expected="7.1
+6.4
+6.1
+5.1"
+
+    [ "$installed_versions" == "$expected" ]
     [ "$?" == 0 ]
 }

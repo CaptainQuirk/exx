@@ -2,14 +2,18 @@
 
 log() {
   local str="$1"
-  echo "$1" >> ./tmp
+  echo "$1" >> ./tmp/debug.log
+}
+
+require() {
+  source $(which "$1")
 }
 
 # checks if commands and utilities are installed on computer
 # ${1}  command
 # returns 0 for success. Otherwise, failure
 is_installed() {
-  env type "${1}"
+  env type "${1}" > /dev/null 2>&1
   rtn=$?
 
   return $rtn
@@ -50,9 +54,10 @@ get_version_options() {
 get_version() {
     local path=$1
     local options=$(get_version_options)
-    local command="PlistBuddy $path $options"
+    local cmd="PlistBuddy $path $options"
+    local result=$(eval $cmd)
 
-    echo "$($command)"
+    echo "$result"
     return 0
 }
 
@@ -68,28 +73,26 @@ get_latest_version() {
 
 get_current_version() {
     local field=4
-    local command="xcode-select -p | cut -d\/ -f $field"
-
-    local current_dir_name=$(command)
+    local path=$(get_current_version_path)
+    local current_dir_name=$(echo $path | cut -d\/ -f $field)
 
     if [ "$current_dir_name" == "Contents" ]; then
         echo "$(get_latest_version)"
+
         return 0
     fi
 
+    echo $(get_version $path)
+
+    return 0
 }
 
-latest_version() {
-    echo `PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
+get_installed_versions() {
+  local versions=$(find /Applications/Xcode -maxdepth 4 -name 'version.plist' -print0 | xargs -0 -n1 dirname | sort --unique --reverse | cut -d"/" -f 4)
+
+  echo "$versions"
+
+  return 0
 }
 
-current_version() {
-    CURRENT=`xcode-select -p | cut -d\/ -f 4`
-    if [ "$CURRENT" == "Contents" ]; then
-        VERSIONS=("$CHECK $LATEST_VERSION \n")
-        CURRENT=`/usr/libexec/PlistBuddy /Applications/Xcode.app/Contents/version.plist -c "Print CFBundleShortVersionString"`
-    fi
-
-    echo $CURRENT
-}
-
+require "shml"
