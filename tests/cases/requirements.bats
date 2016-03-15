@@ -19,6 +19,16 @@ setup() {
     [ "$output" = "exx: xcode-select command is not installed" ]
 }
 
+@test "exx doesn't fail if xcode-select is there" {
+    # Stub bash "type" built-in
+    return_false="$(return_true)"
+    stub type "$return_true"
+
+    run exx
+    log $output
+    [ "$status" -eq 0 ]
+}
+
 @test "exx fails if PlistBuddy is missing" {
     # Stub bash "type" built-in with a condition to return
     # false only if argument is PlistBuddy

@@ -30,6 +30,21 @@ EOF
     echo "${String}"
 }
 
+return_true() {
+    read -d '' String <<"EOF"
+#!/bin/bash
+
+log() {
+  local str=$1
+  echo "$str" >> ./tmp/debug.log
+}
+
+exit 0
+EOF
+
+    echo "${String}"
+}
+
 echo_value() {
   read -d '' STRING <<EOF
 #!/bin/bash
