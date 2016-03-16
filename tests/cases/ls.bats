@@ -14,7 +14,7 @@ teardown() {
     clear_stubs
 }
 
-@test "ls subcommand returns the latest version and the others installed" {
+@test "ls subcommand returns the latest version and the others installed with current emphasized if latest" {
     source "$(require_path "shml")"
 
     stub type "$return_true"
@@ -38,3 +38,27 @@ teardown() {
     [ "$output" == "$expected" ]
 }
 
+@test "ls subcommand returns the latest version and the others installed with current emphasized" {
+    source "$(require_path "shml")"
+
+    stub type "$return_true"
+    value_stub=$(echo_value "7.2")
+    stub PlistBuddy "$value_stub"
+
+    get_fixture_paths=$(fixture_installed_versions)
+    stub find "$get_fixture_paths"
+
+    expected="7.2
+   7.1
+ $(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "6.4")$(attribute end)
+   6.1
+   5.1"
+
+    run exx ls
+
+    #log "diff : $(diff -ai <(echo "$expected") <(echo "$output"))"
+    log "status : $status"
+    log "output : $output"
+    [ "$status" -eq 0 ]
+    [ "$output" == "$expected" ]
+}

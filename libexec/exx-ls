@@ -17,8 +17,13 @@ fi
 INSTALLED=$(get_installed_versions)
 
 for VERSION in $INSTALLED; do
-  V=$(printf "$VERSION")
-  VERSIONS="${VERSIONS}\n   ${V}"
+  if [ "$VERSION" == "$CURRENT" ]; then
+    V="$(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "$VERSION")$(attribute end)"
+  else
+    V=$(printf "  $VERSION")
+  fi
+
+  VERSIONS="${VERSIONS}\n ${V}"
 done
 
-printf "$VERSIONS"
+printf "$VERSIONS\n"
