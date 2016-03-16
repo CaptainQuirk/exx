@@ -22,11 +22,11 @@ teardown() {
     get_fixture_paths=$(fixture_installed_versions)
     stub find "$get_fixture_paths"
 
-    expected="$(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "7.2")$(attribute end)
-  7.1
-  6.4
-  6.1
-  5.1"
+    expected=" $(echo $(fgc green)$(icon check)$(fgc end)) $(attribute bold "7.2")$(attribute end)
+   7.1
+   6.4
+   6.1
+   5.1"
 
     run exx ls
 
