@@ -15,6 +15,8 @@ teardown() {
 }
 
 @test "ls subcommand returns the latest version and the others installed" {
+    source "$(require_path "shml")"
+
     stub type "$return_true"
     value_stub=$(echo_value "7.2")
     stub PlistBuddy "$value_stub"

@@ -3,6 +3,7 @@
 # Summary: List all installed Xcode subfolders
 
 source "$_EXX_ROOT/functions.sh"
+source "$(require_path "shml")"
 
 LATEST=$(get_latest_version)
 CURRENT=$(get_current_version)

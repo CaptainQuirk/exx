@@ -14,6 +14,10 @@ teardown() {
     clear_stubs
 }
 
+@test "require function returns 1 if program cannot be sourced" {
+    ! require "is-this-the-life"
+}
+
 @test "is_installed function returns 1 if program is not installed" {
     ! is_installed "what-is-the-capital-assyria"
 }

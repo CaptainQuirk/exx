@@ -5,8 +5,14 @@ log() {
   echo "$1" >> ./tmp/debug.log
 }
 
-require() {
-  source $(which "$1")
+require_path() {
+    path=$(which "$1")
+    if [ "$path" == "$1 not found" ]; then
+        return 1
+    fi
+
+    echo "$path"
+    return 0
 }
 
 # checks if commands and utilities are installed on computer
@@ -102,5 +108,4 @@ load_config() {
   export XCODE_VERSIONS_DIRNAME=${XCODE_VERSIONS_DIRNAME:-/Applications/Xcode}
 }
 
-require "shml"
 load_config
